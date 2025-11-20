@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://nknrrjrxqes5"
+path="res://.godot/imported/Cube_Bricks.obj-04ffa01cfcd1cbe4aad03c7f40334959.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Cube_Bricks.obj-04ffa01cfcd1cbe4aad03c7f40334959.mesh"]
+
+source_file="res://Ultimate Platformer Pack - Dec 2021/Cubes/OBJ/Cube_Bricks.obj"
+dest_files=["res://.godot/imported/Cube_Bricks.obj-04ffa01cfcd1cbe4aad03c7f40334959.mesh", "res://.godot/imported/Cube_Bricks.obj-04ffa01cfcd1cbe4aad03c7f40334959.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

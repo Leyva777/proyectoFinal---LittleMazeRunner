@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3k8qam2qxyr1"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/maze_generator.gd" id="2_maze"]
+[ext_resource type="PackedScene" uid="uid://cpx3h8k2ygvh1" path="res://scenes/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" uid="uid://bwx5k7p3qm8n2" path="res://scenes/hud.tscn" id="4_hud"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="5_manager"]
+[ext_resource type="Script" path="res://scripts/environment_controller.gd" id="6_environment"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="MazeGenerator" type="Node3D" parent="."]
+script = ExtResource("2_maze")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.5, 2)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 10, 0)
+shadow_enabled = true
+
+[node name="EnvironmentController" type="Node3D" parent="."]
+script = ExtResource("6_environment")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="EnvironmentController"]
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("5_manager")

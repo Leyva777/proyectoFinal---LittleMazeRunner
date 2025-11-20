@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cvc5sy87piflj"
+path="res://.godot/imported/Spikes.obj-e76cd2b54c08d21e97867c33d1b7a8ad.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Spikes.obj-e76cd2b54c08d21e97867c33d1b7a8ad.mesh"]
+
+source_file="res://Ultimate Platformer Pack - Dec 2021/Level and Mechanics/OBJ/Spikes.obj"
+dest_files=["res://.godot/imported/Spikes.obj-e76cd2b54c08d21e97867c33d1b7a8ad.mesh", "res://.godot/imported/Spikes.obj-e76cd2b54c08d21e97867c33d1b7a8ad.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
