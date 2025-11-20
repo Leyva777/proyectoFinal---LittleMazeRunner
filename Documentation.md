@@ -4,7 +4,7 @@
 
 | Campo | Detalle |
 |-------|---------|
-| **Nombre del Proyecto** | Laberinto 3D |
+| **Nombre del Proyecto** | Little maze runner |
 | **Motor de Desarrollo** | Godot 4.5 |
 | **Lenguaje** | GDScript |
 | **Género** | Puzzle / Acción 3D |
