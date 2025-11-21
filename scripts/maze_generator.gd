@@ -5,7 +5,7 @@ extends Node3D
 
 @export var maze_size: int = 15
 @export var cell_size: float = 4.0
-@export var wall_height: float = 3.0
+@export var wall_height: float = 5.0
 @export var wall_thickness: float = 0.3
 
 # Colors/Materials
