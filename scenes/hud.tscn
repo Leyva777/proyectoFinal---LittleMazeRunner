@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwx5k7p3qm8n2"]
 
-[ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
-[ext_resource type="Script" path="res://scripts/minimap.gd" id="2_minimap"]
+[ext_resource type="Script" uid="uid://onrtvxr34ajc" path="res://scripts/hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://b66uxwmo16cu" path="res://scripts/minimap.gd" id="2_minimap"]
 
 [node name="HUD" type="Control"]
 process_mode = 3

@@ -73,8 +73,8 @@ func draw_player():
 	var map_pos = world_to_map(player.global_position)
 	
 	# Draw direction indicator (triangle)
-	var forward = -player.global_transform.basis.z
-	var angle = atan2(forward.x, forward.z)
+	var yaw = player.global_transform.basis.get_euler().y
+	var angle = -yaw
 	
 	var points: PackedVector2Array = [
 		map_pos + Vector2(0, -8).rotated(angle),
