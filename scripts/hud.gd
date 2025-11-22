@@ -35,18 +35,24 @@ func connect_buttons():
 	# Game Over buttons
 	if game_over_panel:
 		var restart_btn = game_over_panel.get_node_or_null("VBoxContainer/RestartButton")
+		var main_menu_btn = game_over_panel.get_node_or_null("VBoxContainer/MainMenuButton")
 		var quit_btn = game_over_panel.get_node_or_null("VBoxContainer/QuitButton")
 		if restart_btn and not restart_btn.pressed.is_connected(_on_restart_button_pressed):
 			restart_btn.pressed.connect(_on_restart_button_pressed)
+		if main_menu_btn and not main_menu_btn.pressed.is_connected(_on_main_menu_button_pressed):
+			main_menu_btn.pressed.connect(_on_main_menu_button_pressed)
 		if quit_btn and not quit_btn.pressed.is_connected(_on_quit_button_pressed):
 			quit_btn.pressed.connect(_on_quit_button_pressed)
 	
 	# Victory buttons
 	if victory_panel:
 		var restart_btn = victory_panel.get_node_or_null("VBoxContainer/RestartButton")
+		var main_menu_btn = victory_panel.get_node_or_null("VBoxContainer/MainMenuButton")
 		var quit_btn = victory_panel.get_node_or_null("VBoxContainer/QuitButton")
 		if restart_btn and not restart_btn.pressed.is_connected(_on_restart_button_pressed):
 			restart_btn.pressed.connect(_on_restart_button_pressed)
+		if main_menu_btn and not main_menu_btn.pressed.is_connected(_on_main_menu_button_pressed):
+			main_menu_btn.pressed.connect(_on_main_menu_button_pressed)
 		if quit_btn and not quit_btn.pressed.is_connected(_on_quit_button_pressed):
 			quit_btn.pressed.connect(_on_quit_button_pressed)
 	
@@ -54,11 +60,14 @@ func connect_buttons():
 	if pause_menu:
 		var resume_btn = pause_menu.get_node_or_null("VBoxContainer/ResumeButton")
 		var restart_btn = pause_menu.get_node_or_null("VBoxContainer/RestartButton")
+		var main_menu_btn = pause_menu.get_node_or_null("VBoxContainer/MainMenuButton")
 		var quit_btn = pause_menu.get_node_or_null("VBoxContainer/QuitButton")
 		if resume_btn and not resume_btn.pressed.is_connected(_on_resume_button_pressed):
 			resume_btn.pressed.connect(_on_resume_button_pressed)
 		if restart_btn and not restart_btn.pressed.is_connected(_on_restart_button_pressed):
 			restart_btn.pressed.connect(_on_restart_button_pressed)
+		if main_menu_btn and not main_menu_btn.pressed.is_connected(_on_main_menu_button_pressed):
+			main_menu_btn.pressed.connect(_on_main_menu_button_pressed)
 		if quit_btn and not quit_btn.pressed.is_connected(_on_quit_button_pressed):
 			quit_btn.pressed.connect(_on_quit_button_pressed)
 
@@ -145,3 +154,9 @@ func _on_quit_button_pressed():
 func _on_resume_button_pressed():
 	print("Resume button pressed!")  # Debug
 	toggle_pause()
+
+func _on_main_menu_button_pressed():
+	print("Main Menu button pressed!")  # Debug
+	get_tree().paused = false
+	# Return to main menu
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

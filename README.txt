@@ -19,6 +19,11 @@ Motor: Godot 4.5
 CONTROLES DEL JUEGO
 ================================================================================
 
+MENU PRINCIPAL:
+  Click en botones para navegar
+  - Iniciar Juego: Comienza una nueva partida
+  - Salir: Cierra el juego
+
 MOVIMIENTO:
   W - Mover hacia adelante
   A - Mover hacia la izquierda
@@ -36,10 +41,17 @@ INTERFAZ:
   P - Pausar/Despausar el juego
   ESC - Liberar/capturar el cursor del mouse
 
-MENUS:
-  En pantallas de Game Over/Victoria:
-    - Botón "Restart" / "Play Again": reiniciar el nivel
-    - Botón "Quit": salir del juego
+MENUS EN JUEGO:
+  Menú de Pausa (Presionar P):
+    - Resume: Continuar jugando
+    - Restart: Reiniciar nivel
+    - Main Menu: Volver al menú principal
+    - Quit: Salir del juego
+  
+  Pantallas de Game Over/Victoria:
+    - Restart / Play Again: Reiniciar el nivel
+    - Main Menu: Volver al menú principal
+    - Quit: Salir del juego
 
 
 CARACTERÍSTICAS IMPLEMENTADAS
@@ -116,22 +128,29 @@ CARACTERÍSTICAS AVANZADAS
    - Leyenda explicativa integrada
    - Efecto de pulso en la meta para destacarla
 
-4. Menú de Pausa:
+4. Sistema de Menús:
+   - Menú Principal al iniciar el juego
+   - Opciones: Iniciar Juego, Salir
+   - Título animado con efecto de pulso
+   - Información del equipo y proyecto
+   
+5. Menú de Pausa:
    - Activación con tecla P
    - Pausa completa del juego
-   - Opciones: Reanudar, Reiniciar, Salir
+   - Opciones: Reanudar, Reiniciar, Menú Principal, Salir
    - Liberación automática del cursor
+   - Navegación fluida entre escenas
 
-5. Generación Procedural Avanzada:
+6. Generación Procedural Avanzada:
    - Laberinto diferente en cada partida
    - Algoritmo garantiza solución desde inicio a meta
    - Creación de rutas alternativas para estrategia
 
-6. Sistema de Iluminación:
+7. Sistema de Iluminación:
    - DirectionalLight3D con sombras activadas
    - Materiales con propiedades de emisión para meta y power-ups
 
-7. Sistema de Gestión:
+8. Sistema de Gestión:
    - Game Manager centralizado para coordinación
    - Sistema de señales para comunicación entre componentes
    - Gestión de estados del juego (jugando, pausado, game over, victoria)
@@ -142,6 +161,7 @@ ARQUITECTURA DEL PROYECTO
 
 ESTRUCTURA DE CARPETAS:
   /scripts/
+    - main_menu.gd: Menú principal del juego
     - player.gd: Control del jugador y mecánicas
     - maze_generator.gd: Generación procedural del laberinto
     - collectible.gd: Lógica de objetos recolectables
@@ -153,6 +173,7 @@ ESTRUCTURA DE CARPETAS:
     - minimap.gd: Sistema de minimapa en tiempo real
 
   /scenes/
+    - main_menu.tscn: Menú principal (escena inicial)
     - main.tscn: Escena principal del juego
     - player.tscn: Prefab del jugador
     - enemy.tscn: Prefab de enemigo
