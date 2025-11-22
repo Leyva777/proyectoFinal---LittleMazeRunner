@@ -130,6 +130,7 @@ func chase_behavior(_delta):
 		# Rotate to face player
 		if model:
 			model.look_at(player.global_position, Vector3.UP)
+			model.rotate_y(deg_to_rad(180))
 
 func wait_behavior(delta):
 	velocity.x = 0
