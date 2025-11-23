@@ -1,10 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpx3h8k2ygvh1"]
 
 [ext_resource type="Script" uid="uid://qpqmn5dbwdmk" path="res://scripts/player.gd" id="1_player"]
-[ext_resource type="PackedScene" uid="uid://cgpbrftbowwr2" path="res://Ultimate Platformer Pack - Dec 2021/Character/glTF/Character.gltf" id="2_model"]
+[ext_resource type="PackedScene" uid="uid://yo85kcfhp7qs" path="res://scenes/character.tscn" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
-height = 1.8
+radius = 0.7636719
+height = 2.816504
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 transform = Transform3D(0.57641834, 0, 0, 0, 0.52250844, 0, 0, 0, 0.6920054, 0, 0, 0)
@@ -12,11 +13,10 @@ collision_mask = 15
 script = ExtResource("1_player")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 1, 0, 1.4082516, 0)
 shape = SubResource("CapsuleShape3D_1")
 
-[node name="CharacterModel" parent="." instance=ExtResource("2_model")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+[node name="Character" parent="." instance=ExtResource("2_g2els")]
 
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.6672384, 0, 0, 0, 0.5629054, 0, 1.6, 0)
