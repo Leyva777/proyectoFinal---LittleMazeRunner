@@ -18,9 +18,17 @@ var wait_timer: float = 0.0
 enum State { PATROL, CHASE, WAIT }
 var current_state: State = State.PATROL
 
+# Animations
+enum {IDLE, WALK}
+var curAnim = IDLE
+@export var blend_speed: int = 15
+var walk_val := 0.0
+
 # References
 var player: CharacterBody3D = null
-@onready var model: Node3D = $Model
+@onready var mob: Node3D = $Mob
+@onready var animation_tree: AnimationTree = $Mob/AnimationTree
+
 
 # Gravity
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -74,11 +82,26 @@ func _physics_process(delta):
 		State.WAIT:
 			wait_behavior(delta)
 	
+	handle_animations(delta)
+	update_tree()
+	
 	move_and_slide()
 	
 	# Check for collision with player
 	check_player_collision()
 
+# Definition for animations
+func handle_animations(delta):
+	match curAnim:
+		IDLE:
+			walk_val = lerpf(walk_val, 0, blend_speed*delta)
+		WALK:
+			walk_val = lerpf(walk_val, 1, blend_speed*delta)
+
+# Update the blend value
+func update_tree():
+	animation_tree["parameters/Walk/blend_amount"] =walk_val
+	
 func patrol_behavior(_delta):
 	if waypoints.is_empty():
 		return
@@ -96,10 +119,11 @@ func patrol_behavior(_delta):
 	if direction.length() > 0:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
+		curAnim = WALK
 		
 		# Rotate to face movement direction
-		if model:
-			model.look_at(global_position + direction, Vector3.UP)
+		if mob:
+			mob.look_at(global_position + direction, Vector3.UP)
 	
 	# Check if reached waypoint
 	if global_position.distance_to(target) < 0.5:
@@ -117,6 +141,7 @@ func chase_behavior(_delta):
 	# If player too far, return to patrol
 	if distance_to_player > detection_radius * 1.5:
 		current_state = State.PATROL
+		curAnim = IDLE
 		return
 	
 	# Chase player
@@ -126,15 +151,17 @@ func chase_behavior(_delta):
 	if direction.length() > 0:
 		velocity.x = direction.x * speed * 1.3  # Chase slightly faster
 		velocity.z = direction.z * speed * 1.3
+		curAnim = WALK
 		
 		# Rotate to face player
-		if model:
-			model.look_at(player.global_position, Vector3.UP)
-			model.rotate_y(deg_to_rad(180))
+		if mob:
+			mob.look_at(player.global_position, Vector3.UP)
+			mob.rotate_y(deg_to_rad(180))
 
 func wait_behavior(delta):
 	velocity.x = 0
 	velocity.z = 0
+	curAnim = IDLE
 	
 	wait_timer -= delta
 	if wait_timer <= 0:
@@ -147,6 +174,7 @@ func check_player_collision():
 		
 		if collider and collider.is_in_group("player"):
 			damage_player(collider)
+			animation_tree.set("parameters/Attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 func damage_player(player_node):
 	if player_node.has_method("take_damage"):

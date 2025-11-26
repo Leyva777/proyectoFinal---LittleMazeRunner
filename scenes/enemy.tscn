@@ -1,15 +1,29 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8mh5n3p2qx4r"]
 
 [ext_resource type="Script" uid="uid://s4hpi6nyuuq" path="res://scripts/enemy.gd" id="1_enemy"]
-[ext_resource type="PackedScene" uid="uid://bjpu3rpjk47qm" path="res://Ultimate Platformer Pack - Dec 2021/Enemies/glTF/Enemy.gltf" id="2_model"]
+[ext_resource type="PackedScene" uid="uid://c1jy3pf2k3i1o" path="res://assets/Models/mob.tscn" id="2_md0e3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.6821289
+height = 1.5046387
 
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 2
 script = ExtResource("1_enemy")
 
-[node name="Model" parent="." instance=ExtResource("2_model")]
+[node name="Mob" parent="." instance=ExtResource("2_md0e3")]
+
+[node name="Skeleton3D" parent="Mob/MonsterArmature" index="0"]
+bones/1/position = Vector3(-7.803066e-18, 0.098022796, 0.5008285)
+bones/2/position = Vector3(0, 0.5070123, 0)
+bones/4/rotation = Quaternion(-2.1684049e-19, 1.1012433e-09, 0.010981835, 0.99993974)
+bones/5/position = Vector3(-0.43069768, 0.49029273, 0.50621223)
+bones/5/rotation = Quaternion(-0.02167995, 0.0046113315, 0.02235811, 0.9995044)
+bones/6/position = Vector3(0.43069768, 0.49029273, 0.50621223)
+bones/6/rotation = Quaternion(-0.021679955, -0.0046113315, -0.02235811, 0.9995044)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7508545, 0)
 shape = SubResource("CapsuleShape3D_1")
+
+[editable path="Mob"]

@@ -8,7 +8,7 @@ extends CharacterBody3D
 @export var sprint_speed: float = 8.0
 @export var acceleration: float = 10.0
 @export var friction: float = 15.0
-@export var jump_velocity: float = 5.0 #4.5 normal
+@export var jump_velocity: float = 7.0
 
 # Camera parameters
 @export var mouse_sensitivity: float = 0.003
@@ -43,7 +43,7 @@ var run_val := 0.0
 var is_game_over: bool = false
 
 # Gravity
-#var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	# Capture mouse cursor
@@ -88,15 +88,7 @@ func _physics_process(delta):
 	
 	# Apply gravity
 	if not is_on_floor():
-		velocity += get_gravity() * delta
-	
-	# Handle jump
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = jump_velocity
-		curAnim = JUMP
-		return
-	elif Input.is_action_just_released("ui_accept") and velocity.y > 3.0:
-		velocity.y *= 0.5
+		velocity.y -= gravity * delta
 	
 	# Get input direction
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -122,6 +114,14 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0.0, current_speed)
 		if is_on_floor():
 			curAnim = IDLE
+			
+	# Handle jump
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		velocity.y = jump_velocity
+		curAnim = JUMP
+		return
+	elif Input.is_action_just_released("ui_accept") and velocity.y > 3.0:
+		velocity.y *= 0.5
 	
 	move_and_slide()
 
