@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://mchaar8rwqfs"]
+
+[ext_resource type="PackedScene" uid="uid://cgpbrftbowwr2" path="res://Ultimate Platformer Pack - Dec 2021/Character/glTF/Character.gltf" id="1_0sl5a"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0sl5a"]
+animation = &"Jump_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qn21b"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ovlj1"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_kdyof"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ggkmg"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_0sl5a"]
+graph_offset = Vector2(-611.5868, -3.2081146)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_ovlj1")
+nodes/Idle/position = Vector2(-520, 100)
+"nodes/Anim Run/node" = SubResource("AnimationNodeAnimation_qn21b")
+"nodes/Anim Run/position" = Vector2(-400, 420)
+"nodes/Anim Jump/node" = SubResource("AnimationNodeAnimation_0sl5a")
+"nodes/Anim Jump/position" = Vector2(-120, 420)
+nodes/Run/node = SubResource("AnimationNodeBlend2_ggkmg")
+nodes/Run/position = Vector2(-240, 80)
+nodes/Jump/node = SubResource("AnimationNodeBlend2_kdyof")
+nodes/Jump/position = Vector2(55.65042, 125.412155)
+node_connections = [&"output", 0, &"Jump", &"Run", 0, &"Idle", &"Run", 1, &"Anim Run", &"Jump", 0, &"Run", &"Jump", 1, &"Anim Jump"]
+
+[node name="Bunny" instance=ExtResource("1_0sl5a")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="CharacterArmature" index="0"]
+bones/1/rotation = Quaternion(7.85402e-06, 0.70295197, 0.7112374, 7.762523e-06)
+bones/2/position = Vector3(0.0021529857, 0.6154677, 0.15489031)
+bones/2/rotation = Quaternion(-3.5526934e-15, 1.1920933e-07, -8.470341e-22, 1)
+bones/4/rotation = Quaternion(0.14445701, 4.403644e-07, 1.3464231e-08, 0.9895112)
+bones/5/rotation = Quaternion(-0.013158741, -8.322606e-07, -2.942855e-09, 0.9999134)
+bones/6/rotation = Quaternion(-0.027065465, 6.777682e-07, -1.8720296e-09, 0.99963367)
+bones/7/rotation = Quaternion(-0.06467935, -0.0002748984, 1.7769216e-05, 0.9979061)
+bones/9/rotation = Quaternion(-0.17820105, -0.007322451, -0.015499877, 0.98384476)
+bones/10/rotation = Quaternion(-0.46943888, -0.102307126, 0.1900364, 0.8561815)
+bones/12/rotation = Quaternion(-0.1797666, 0.00801935, 0.015375061, 0.98355645)
+bones/13/rotation = Quaternion(-0.472663, 0.10302275, -0.18964927, 0.85440576)
+bones/14/position = Vector3(0.13784872, 0.14109413, 0.014069904)
+bones/14/rotation = Quaternion(-0.0473355, 0.039406624, -0.41049632, 0.90977985)
+bones/15/rotation = Quaternion(0.52678555, 0.50360876, 0.47415757, -0.49401394)
+bones/16/rotation = Quaternion(-0.025801424, 0.26078108, -0.2658206, 0.9277214)
+bones/17/rotation = Quaternion(0.012537885, 0.018195217, -0.006543083, 0.9997345)
+bones/18/position = Vector3(-0.13657194, 0.14109409, 0.014070078)
+bones/18/rotation = Quaternion(-0.047335252, -0.039406065, 0.41049635, 0.9097799)
+bones/19/rotation = Quaternion(0.5267858, -0.5036087, -0.47415748, -0.4940139)
+bones/20/rotation = Quaternion(-0.025801448, -0.2607811, 0.26582062, 0.9277214)
+bones/21/rotation = Quaternion(0.0125379, -0.01819519, 0.0065430654, 0.9997345)
+bones/22/rotation = Quaternion(0.9267556, 0.015346612, 0.005944273, 0.37530407)
+bones/23/rotation = Quaternion(0.6388694, 0.010269572, 0.015899297, 0.76908237)
+bones/24/rotation = Quaternion(0.92675567, -0.015346592, -0.0059435153, 0.37530392)
+bones/25/rotation = Quaternion(0.63886905, -0.010269457, -0.015899153, 0.7690826)
+bones/26/rotation = Quaternion(-3.5526934e-15, 1.1920937e-07, -8.470344e-22, 1)
+bones/27/rotation = Quaternion(-7.85402e-06, 0.70295197, 0.7112374, -7.762523e-06)
+bones/28/rotation = Quaternion(-3.552734e-15, -5.9604645e-07, 3.3881257e-21, 1)
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "Idle"
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeBlendTree_0sl5a")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Run/blend_amount = 0.0
+parameters/Jump/blend_amount = 0.0

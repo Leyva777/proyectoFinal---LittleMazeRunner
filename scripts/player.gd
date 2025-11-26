@@ -8,12 +8,12 @@ extends CharacterBody3D
 @export var sprint_speed: float = 8.0
 @export var acceleration: float = 10.0
 @export var friction: float = 15.0
-@export var jump_velocity: float = 4.5 #4.5 normal
+@export var jump_velocity: float = 5.0 #4.5 normal
 
 # Camera parameters
 @export var mouse_sensitivity: float = 0.003
-@export var camera_min_angle: float = -60.0
-@export var camera_max_angle: float = 60.0
+@export var camera_min_angle: float = -50.0
+@export var camera_max_angle: float = 30.0
 
 # Health system
 @export var max_health: int = 3
@@ -26,15 +26,24 @@ var speed_boost_active: bool = false
 var speed_boost_timer: float = 0.0
 var speed_boost_duration: float = 5.0
 
+# Animations
+enum {IDLE, RUN, JUMP}
+var curAnim = IDLE
+@export var blend_speed: int = 15
+var jump_val := 0.0
+var run_val := 0.0
+
 # References
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var camera: Camera3D = $CameraPivot/Camera3D
+@onready var animation_tree: AnimationTree = $Bunny/AnimationTree
+
 
 # Game state
 var is_game_over: bool = false
 
 # Gravity
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+#var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
 	# Capture mouse cursor
@@ -70,17 +79,24 @@ func _physics_process(delta):
 	if is_game_over:
 		return
 	
+	# Manage the animations
+	handle_animations(delta)
+	update_tree()
+	
 	# Update power-up timers
 	update_powerups(delta)
 	
 	# Apply gravity
 	if not is_on_floor():
-		velocity.y -= gravity * delta
+		velocity += get_gravity() * delta
 	
 	# Handle jump
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_velocity
-		
+		curAnim = JUMP
+		return
+	elif Input.is_action_just_released("ui_accept") and velocity.y > 3.0:
+		velocity.y *= 0.5
 	
 	# Get input direction
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -90,18 +106,40 @@ func _physics_process(delta):
 	var current_speed = speed
 	if Input.is_action_pressed("sprint"):
 		current_speed = sprint_speed
+	if Input.is_action_just_released("sprint"):
+		current_speed = speed
 	if speed_boost_active:
 		current_speed *= 1.5
 	
-	# Apply movement with acceleration/friction
+	# Apply movement with acceleration and animations
 	if direction:
-		velocity.x = move_toward(velocity.x, direction.x * current_speed, acceleration * delta)
-		velocity.z = move_toward(velocity.z, direction.z * current_speed, acceleration * delta)
+		velocity.x = direction.x * current_speed
+		velocity.z = direction.z * current_speed
+		if is_on_floor():
+			curAnim = RUN
 	else:
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
-		velocity.z = move_toward(velocity.z, 0, friction * delta)
+		velocity.x = move_toward(velocity.x, 0.0, current_speed)
+		velocity.z = move_toward(velocity.z, 0.0, current_speed)
+		if is_on_floor():
+			curAnim = IDLE
 	
 	move_and_slide()
+
+func handle_animations(delta):
+	match curAnim:
+		IDLE:
+			run_val = lerpf(run_val, 0, blend_speed*delta)
+			jump_val = lerpf(jump_val, 0, blend_speed*delta)
+		RUN:
+			run_val = lerpf(run_val, 1, blend_speed*delta)
+			jump_val = lerpf(jump_val, 0, blend_speed*delta)
+		JUMP:
+			run_val = lerpf(run_val, 0, blend_speed*delta)
+			jump_val = lerpf(jump_val, 1, blend_speed*delta)
+
+func update_tree():
+	animation_tree["parameters/Run/blend_amount"] = run_val
+	animation_tree["parameters/Jump/blend_amount"] = jump_val
 
 func update_powerups(delta: float):
 	# Speed boost timer
