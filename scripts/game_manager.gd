@@ -71,7 +71,7 @@ func level_complete():
 		return
 	
 	# Check if all collectibles were gathered
-	if collected_items >= total_collectibles:
+	if collected_items <= total_collectibles:
 		is_victory = true
 		victory.emit()
 		

@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cd3414p3bjb8j"
+path="res://.godot/imported/sand_B.obj-7659ddd54a0ecde7cc4974d52e83f556.mesh"
+
+[deps]
+
+files=["res://.godot/imported/sand_B.obj-7659ddd54a0ecde7cc4974d52e83f556.mesh"]
+
+source_file="res://assets/textures/KayKit_BlockBits_1.0_FREE/Assets/obj/sand_B.obj"
+dest_files=["res://.godot/imported/sand_B.obj-7659ddd54a0ecde7cc4974d52e83f556.mesh", "res://.godot/imported/sand_B.obj-7659ddd54a0ecde7cc4974d52e83f556.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

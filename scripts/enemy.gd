@@ -118,19 +118,23 @@ func patrol_behavior(_delta):
 	var direction = (target - global_position).normalized()
 	direction.y = 0  # Keep movement horizontal
 	
-	if direction.length() > 0:
+	# Check if reached waypoint first
+	if global_position.distance_to(target) < 0.5:
+		current_waypoint_index = (current_waypoint_index + 1) % waypoints.size()
+		current_state = State.WAIT
+		wait_timer = patrol_wait_time
+		return
+	
+	if direction.length() > 0.01:  # Add threshold to prevent zero-length direction
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
 		
 		# Rotate to face movement direction
 		if mob:
-			mob.look_at(global_position + direction, Vector3.UP)
-	
-	# Check if reached waypoint
-	if global_position.distance_to(target) < 0.5:
-		current_waypoint_index = (current_waypoint_index + 1) % waypoints.size()
-		current_state = State.WAIT
-		wait_timer = patrol_wait_time
+			var look_target = global_position + direction
+			# Only call look_at if target is sufficiently different from current position
+			if not look_target.is_equal_approx(global_position):
+				mob.look_at(look_target, Vector3.UP)
 
 func chase_behavior(_delta):
 	if not player:
@@ -150,14 +154,16 @@ func chase_behavior(_delta):
 	var direction = (player.global_position - global_position).normalized()
 	direction.y = 0
 	
-	if direction.length() > 0:
+	if direction.length() > 0.01:  # Add threshold to prevent zero-length direction
 		velocity.x = direction.x * speed * 1.3  # Chase slightly faster
 		velocity.z = direction.z * speed * 1.3
 		
 		# Rotate to face player
 		if mob:
-			mob.look_at(player.global_position, Vector3.UP)
-			mob.rotate_y(deg_to_rad(180))
+			# Only call look_at if player position is different from enemy position
+			if not player.global_position.is_equal_approx(global_position):
+				mob.look_at(player.global_position, Vector3.UP)
+				mob.rotate_y(deg_to_rad(180))
 
 func wait_behavior(delta):
 	velocity.x = 0

@@ -25,13 +25,13 @@ node_connections = [&"output", 0, &"Walk", &"Walk", 0, &"Idle", &"Walk", 1, &"An
 transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -0.99999994, 0, 0, 0)
 
 [node name="Skeleton3D" parent="MonsterArmature" index="0"]
-bones/1/position = Vector3(-7.803066e-18, 0.090286285, 0.5008285)
-bones/2/position = Vector3(0, 0.48419628, 0)
-bones/4/rotation = Quaternion(6.266059e-20, 3.5473344e-10, -0.007367163, 0.9999729)
-bones/5/position = Vector3(-0.43069768, 0.47642216, 0.50621223)
-bones/5/rotation = Quaternion(-0.0009128124, 0.00019415541, 0.00094136543, 0.99999917)
-bones/6/position = Vector3(0.43069768, 0.47642216, 0.50621223)
-bones/6/rotation = Quaternion(-0.0009128124, -0.00019415541, -0.00094136543, 0.99999917)
+bones/1/position = Vector3(-7.803066e-18, 0.09267069, 0.5008285)
+bones/2/position = Vector3(0, 0.4938589, 0)
+bones/4/rotation = Quaternion(4.6761533e-19, 3.5475997e-10, -0.018367866, 0.9998314)
+bones/5/position = Vector3(-0.43069768, 0.48221374, 0.50621223)
+bones/5/rotation = Quaternion(-0.009711228, 0.0020655808, 0.010015001, 0.99990064)
+bones/6/position = Vector3(0.43069768, 0.48221374, 0.50621223)
+bones/6/rotation = Quaternion(-0.009711228, -0.0020655808, -0.0100150015, 0.99990064)
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Idle"

@@ -47,7 +47,7 @@ func spawn_collectibles():
 		add_child(collectible)
 
 func spawn_enemies():
-	var num_enemies = 2
+	var num_enemies = 5
 	
 	for i in range(num_enemies):
 		var enemy = enemy_scene.instantiate()

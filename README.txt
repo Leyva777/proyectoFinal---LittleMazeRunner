@@ -67,12 +67,14 @@ REQUISITOS MINIMOS
    - Períodos de invulnerabilidad temporal tras recibir daño
 
 2. Laberinto:
-   - Tamaño 15x15 celdas
+   - Tamaño 25x25 celdas (laberinto grande y expansivo)
+   - Celdas de 6x6 unidades para mayor espacio
    - Generación procedural con algoritmo de Recursive Backtracking
    - Múltiples rutas hacia la meta (15% de paredes adicionales removidas)
    - Paredes con colisiones físicas funcionales
-   - Texturas y materiales aplicados (piedra gris para paredes, verde oscuro 
-     para suelo)
+   - Texturas mejoradas con materiales procedurales
+   - Paredes de piedra con textura rugosa (10 unidades de altura)
+   - Suelo con textura de baldosas oscuras
    - Zona de meta visible con marcador verde brillante
 
 3. Sistema de Recolección:

@@ -29,13 +29,27 @@ layout_mode = 2
 
 [node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Health: 3 ❤"
 
 [node name="CollectiblesLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 24
 text = "Items: 0 / 10"
+
+[node name="CollectiblesLabel2" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "- W/A/S/D: Mover el personaje
+- Shift: Correr (sprint)
+- Espacio: Saltar"
+horizontal_alignment = 2
 
 [node name="Minimap" type="Control" parent="."]
 layout_mode = 1

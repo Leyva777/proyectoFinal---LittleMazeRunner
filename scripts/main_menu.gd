@@ -37,11 +37,9 @@ func _on_button_hover(_button: Button):
 
 func _on_play_button_pressed():
 	# Fade out effect (optional)
-	print("Starting game...")
 	# Load main game scene
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _on_quit_button_pressed():
-	print("Quitting game...")
 	# Quit the game
 	get_tree().quit()

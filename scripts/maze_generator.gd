@@ -3,15 +3,19 @@ extends Node3D
 # Maze generator using recursive backtracking algorithm
 # Creates a 15x15 maze with multiple paths to the goal
 
-@export var maze_size: int = 15
-@export var cell_size: float = 4.0
-@export var wall_height: float = 7.0
-@export var wall_thickness: float = 0.3
+@export var maze_size: int = 25
+@export var cell_size: float = 8.0
+@export var wall_height: float = 10.0
+@export var wall_thickness: float = 0.4
 
 # Colors/Materials
 var wall_material: StandardMaterial3D
 var floor_material: StandardMaterial3D
 var goal_material: StandardMaterial3D
+
+# Preload textures
+var brick_texture = preload("res://assets/materials/brickWall.png")
+var floor_texture = preload("res://assets/materials/floor.png")
 
 # Maze data structure
 var maze_grid: Array = []
@@ -28,22 +32,27 @@ func _ready():
 	build_maze_geometry()
 
 func setup_materials():
-	# Wall material (gray stone)
+	# Create wall material with brick texture
 	wall_material = StandardMaterial3D.new()
-	wall_material.albedo_color = Color(184, 132, 112) / 255.0
-	wall_material.roughness = 0.8
+	wall_material.albedo_texture = brick_texture
+	wall_material.uv1_scale = Vector3(1.5, 1.5, 1.0)
+	wall_material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	wall_material.roughness = 0.9
 	
-	# Floor material (darker)
+	# Floor material with texture
 	floor_material = StandardMaterial3D.new()
-	floor_material.albedo_color = Color(0.2, 0.25, 0.2)
-	floor_material.roughness = 0.9
+	floor_material.albedo_texture = floor_texture
+	floor_material.uv1_scale = Vector3(2.0, 2.0, 1.0)
+	floor_material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	floor_material.roughness = 0.85
 	
-	# Goal material (bright green)
+	# Goal material (bright green with glow)
 	goal_material = StandardMaterial3D.new()
 	goal_material.albedo_color = Color(0.2, 1.0, 0.3)
 	goal_material.emission_enabled = true
-	goal_material.emission = Color(0.2, 0.8, 0.3)
-	goal_material.emission_energy = 0.5
+	goal_material.emission = Color(0.2, 1.0, 0.3)
+	goal_material.emission_energy = 1.5
+	goal_material.emission_operator = BaseMaterial3D.EMISSION_OP_ADD
 
 func generate_maze():
 	# Initialize grid with all walls

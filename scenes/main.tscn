@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3k8qam2qxyr1"]
+[gd_scene load_steps=8 format=3 uid="uid://b3k8qam2qxyr1"]
 
 [ext_resource type="Script" uid="uid://bl3ge0guswtny" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="Script" uid="uid://duis8ok5mt65v" path="res://scripts/maze_generator.gd" id="2_maze"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bwx5k7p3qm8n2" path="res://scenes/hud.tscn" id="4_hud"]
 [ext_resource type="Script" uid="uid://cjxjrkpksc1ht" path="res://scripts/game_manager.gd" id="5_manager"]
 [ext_resource type="Script" uid="uid://nide1ruqmt7m" path="res://scripts/environment_controller.gd" id="6_environment"]
+[ext_resource type="PackedScene" uid="uid://dfiildsknymu0" path="res://assets/textures/KayKit_BlockBits_1.0_FREE/Assets/gltf/bricks_A.gltf" id="7_o6xl0"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_main")
@@ -29,3 +30,8 @@ script = ExtResource("6_environment")
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("5_manager")
+
+[node name="bricks_A2" parent="." instance=ExtResource("7_o6xl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57641935, 2.7939658, -3.2615337)
+
+[editable path="bricks_A2"]

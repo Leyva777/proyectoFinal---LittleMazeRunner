@@ -4,16 +4,16 @@ extends CharacterBody3D
 # Handles WASD movement, mouse camera rotation, health system, and collisions
 
 # Movement parameters
-@export var speed: float = 7.0
-@export var sprint_speed: float = 8.0
-@export var acceleration: float = 10.0
+@export var speed: float = 10.0
+@export var sprint_speed: float = 14.0
+@export var acceleration: float = 12.0
 @export var friction: float = 15.0
 @export var jump_velocity: float = 7.0
 
 # Camera parameters
 @export var mouse_sensitivity: float = 0.003
-@export var camera_min_angle: float = -50.0
-@export var camera_max_angle: float = 30.0
+@export var camera_min_angle: float = -60.0
+@export var camera_max_angle: float = 40.0
 
 # Health system
 @export var max_health: int = 3
@@ -27,16 +27,22 @@ var speed_boost_timer: float = 0.0
 var speed_boost_duration: float = 5.0
 
 # Animations
-enum {IDLE, RUN, JUMP}
+enum {IDLE, WALK, RUN, JUMP}
 var curAnim = IDLE
 @export var blend_speed: int = 15
 var jump_val := 0.0
 var run_val := 0.0
+var is_sprinting: bool = false
 
 # References
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var camera: Camera3D = $CameraPivot/Camera3D
 @onready var animation_tree: AnimationTree = $Bunny/AnimationTree
+
+# Camera collision
+var camera_raycast: RayCast3D
+var default_camera_distance: float = 8.0
+var camera_collision_margin: float = 0.5
 
 
 # Game state
@@ -50,9 +56,22 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	current_health = max_health
 	
+	# Setup camera collision raycast
+	setup_camera_collision()
+	
 	# Emit signal to update UI
 	if has_signal("health_changed"):
 		emit_signal("health_changed", current_health)
+
+func setup_camera_collision():
+	# Create RayCast3D for camera collision detection
+	camera_raycast = RayCast3D.new()
+	camera_pivot.add_child(camera_raycast)
+	camera_raycast.enabled = true
+	camera_raycast.exclude_parent = true
+	camera_raycast.collision_mask = 1  # Layer 1 (static geometry)
+	# Set target point at default camera distance
+	camera_raycast.target_position = Vector3(0, 0, default_camera_distance)
 
 func _input(event):
 	# Camera rotation with mouse
@@ -79,6 +98,9 @@ func _physics_process(delta):
 	if is_game_over:
 		return
 	
+	# Update camera collision
+	adjust_camera_distance()
+	
 	# Manage the animations
 	handle_animations(delta)
 	update_tree()
@@ -94,12 +116,13 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
+	# Check if sprinting
+	is_sprinting = Input.is_action_pressed("sprint")
+	
 	# Determine current speed (with sprint and power-ups)
 	var current_speed = speed
-	if Input.is_action_pressed("sprint"):
+	if is_sprinting:
 		current_speed = sprint_speed
-	if Input.is_action_just_released("sprint"):
-		current_speed = speed
 	if speed_boost_active:
 		current_speed *= 1.5
 	
@@ -108,7 +131,10 @@ func _physics_process(delta):
 		velocity.x = direction.x * current_speed
 		velocity.z = direction.z * current_speed
 		if is_on_floor():
-			curAnim = RUN
+			if is_sprinting:
+				curAnim = RUN  # Sprint animation
+			else:
+				curAnim = WALK  # Walk animation
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, current_speed)
 		velocity.z = move_toward(velocity.z, 0.0, current_speed)
@@ -119,9 +145,12 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = jump_velocity
 		curAnim = JUMP
-		return
 	elif Input.is_action_just_released("ui_accept") and velocity.y > 3.0:
 		velocity.y *= 0.5
+	
+	# Return to ground animation after jump
+	if not is_on_floor() and curAnim != JUMP:
+		curAnim = JUMP
 	
 	move_and_slide()
 
@@ -130,16 +159,38 @@ func handle_animations(delta):
 		IDLE:
 			run_val = lerpf(run_val, 0, blend_speed*delta)
 			jump_val = lerpf(jump_val, 0, blend_speed*delta)
+		WALK:
+			# Walk speed - medium blend
+			run_val = lerpf(run_val, 0.5, blend_speed*delta)
+			jump_val = lerpf(jump_val, 0, blend_speed*delta)
 		RUN:
+			# Sprint speed - full blend
 			run_val = lerpf(run_val, 1, blend_speed*delta)
 			jump_val = lerpf(jump_val, 0, blend_speed*delta)
 		JUMP:
-			run_val = lerpf(run_val, 0, blend_speed*delta)
+			# Keep current run value during jump for more natural transition
 			jump_val = lerpf(jump_val, 1, blend_speed*delta)
 
 func update_tree():
 	animation_tree["parameters/Run/blend_amount"] = run_val
 	animation_tree["parameters/Jump/blend_amount"] = jump_val
+
+func adjust_camera_distance():
+	# Check if raycast hits a wall
+	if camera_raycast and camera_raycast.is_colliding():
+		# Get collision point
+		var collision_point = camera_raycast.get_collision_point()
+		var collision_distance = camera_pivot.global_position.distance_to(collision_point)
+		
+		# Apply margin to prevent camera from being too close to wall
+		var safe_distance = max(camera_collision_margin, collision_distance - camera_collision_margin)
+		
+		# Smoothly move camera to safe distance
+		var current_z = camera.position.z
+		camera.position.z = lerp(current_z, safe_distance, 0.2)
+	else:
+		# No collision, return to default distance smoothly
+		camera.position.z = lerp(camera.position.z, default_camera_distance, 0.1)
 
 func update_powerups(delta: float):
 	# Speed boost timer

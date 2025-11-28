@@ -15,32 +15,32 @@ script = ExtResource("1_player")
 [node name="Bunny" parent="." instance=ExtResource("2_g2els")]
 
 [node name="Skeleton3D" parent="Bunny/CharacterArmature" index="0"]
-bones/2/position = Vector3(0.0021529857, 0.6948162, 0.15489031)
-bones/4/rotation = Quaternion(0.073546715, 4.358996e-07, 5.5883824e-08, 0.99729186)
-bones/7/rotation = Quaternion(-0.0013423287, -0.00027547497, 3.68771e-07, 0.9999991)
-bones/9/rotation = Quaternion(-0.22643107, -0.028894065, -0.011611764, 0.9735294)
-bones/10/rotation = Quaternion(-0.5414068, -0.11828799, 0.18052292, 0.8125874)
-bones/12/rotation = Quaternion(-0.2322633, 0.031517025, 0.011135696, 0.9720785)
-bones/13/rotation = Quaternion(-0.54828095, 0.1198152, -0.17951275, 0.807965)
-bones/14/position = Vector3(0.15060376, 0.14102502, 0.012796274)
-bones/14/rotation = Quaternion(-0.07284046, 0.09651974, -0.4098099, 0.9041206)
-bones/16/rotation = Quaternion(-0.052528463, 0.26455727, -0.3765097, 0.8862791)
-bones/18/position = Vector3(-0.14932701, 0.14102505, 0.0127964495)
-bones/18/rotation = Quaternion(-0.07284019, -0.09651918, 0.40980995, 0.90412074)
-bones/20/rotation = Quaternion(-0.052528486, -0.26455724, 0.3765097, 0.8862792)
-bones/22/rotation = Quaternion(0.97567755, 0.019419165, 0.0014394074, 0.21834442)
-bones/23/rotation = Quaternion(0.3933919, 0.0053164507, 0.018165546, 0.91917616)
-bones/24/rotation = Quaternion(0.9756776, -0.019419016, -0.0014386835, 0.21834406)
-bones/25/rotation = Quaternion(0.39339125, -0.005316375, -0.018165378, 0.91917634)
+bones/2/position = Vector3(0.0021529857, 0.61447674, 0.15489031)
+bones/4/rotation = Quaternion(0.14534205, 4.3129717e-07, 1.12734455e-07, 0.98938155)
+bones/7/rotation = Quaternion(-0.06548038, -0.00027488402, 1.7989292e-05, 0.9978538)
+bones/9/rotation = Quaternion(-0.22320187, -0.027443144, -0.011874826, 0.9743135)
+bones/10/rotation = Quaternion(-0.49706632, -0.1084403, 0.18660454, 0.8404431)
+bones/12/rotation = Quaternion(-0.20902273, 0.021083532, 0.013025262, 0.97759676)
+bones/13/rotation = Quaternion(-0.48682556, 0.10616659, -0.18790734, 0.8464162)
+bones/14/position = Vector3(0.13657355, 0.14110097, 0.014197244)
+bones/14/rotation = Quaternion(-0.04487132, 0.03390244, -0.41047698, 0.91013515)
+bones/16/rotation = Quaternion(-0.025463669, 0.26070932, -0.26440692, 0.9281548)
+bones/18/position = Vector3(-0.13529679, 0.14110097, 0.014197415)
+bones/18/rotation = Quaternion(-0.04487107, -0.033901885, 0.41047707, 0.91013515)
+bones/20/rotation = Quaternion(-0.025463685, -0.2607093, 0.26440686, 0.92815477)
+bones/22/rotation = Quaternion(0.92610586, 0.015284782, 0.0059988694, 0.37690625)
+bones/23/rotation = Quaternion(0.6412078, 0.010317928, 0.015867954, 0.7671338)
+bones/24/rotation = Quaternion(0.926106, -0.0152847655, -0.0059981123, 0.37690613)
+bones/25/rotation = Quaternion(0.64120764, -0.010317816, -0.015867814, 0.767134)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9999995, 0, 0, 0, 1, 0, 1.5218623, 0)
 shape = SubResource("CapsuleShape3D_1")
 
 [node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.6672384, 0, 0, 0, 0.5629054, 0, 1.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1.6672384, 0, 0, 0, 0.5629054, 0, 2.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.93760884, 0.13067195, 0, -0.2512314, 1.3820657, 0, 0.9999999, 5)
+transform = Transform3D(1.4285715, 0, 0, 0, 0.84101963, 0.16393943, 0, -0.48556313, 2.4909694, 0, 0.95293736, 7.999999)
 
 [editable path="Bunny"]
