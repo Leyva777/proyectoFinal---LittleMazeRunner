@@ -84,7 +84,7 @@ REQUISITOS MINIMOS
    - Contador en UI mostrando progreso (Items: X / 10)
 
 4. Enemigos:
-   - 2 enemigos con sistema de patrullaje por waypoints
+   - 5 enemigos con sistema de patrullaje por waypoints
    - Patrullaje en patrones octogonales alrededor de su spawn
    - Detección de colisión con el jugador
    - Pérdida de 1 vida por contacto
