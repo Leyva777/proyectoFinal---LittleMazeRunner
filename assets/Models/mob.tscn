@@ -1,14 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1jy3pf2k3i1o"]
+[gd_scene load_steps=6 format=3 uid="uid://c1jy3pf2k3i1o"]
 
 [ext_resource type="PackedScene" uid="uid://bjpu3rpjk47qm" path="res://Ultimate Platformer Pack - Dec 2021/Enemies/glTF/Enemy.gltf" id="1_4are2"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1053m"]
-animation = &"Bite_Front"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nbe58"]
 animation = &"Walk"
-
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_eq7t0"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q1ga8"]
 animation = &"Idle"
@@ -16,30 +11,27 @@ animation = &"Idle"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_bapt6"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_1053m"]
-graph_offset = Vector2(-616.9171, 20.980164)
+graph_offset = Vector2(-340.532, -15.547256)
 nodes/output/position = Vector2(580, 140)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_q1ga8")
 nodes/Idle/position = Vector2(-240, 160)
 "nodes/Anim Walk/node" = SubResource("AnimationNodeAnimation_nbe58")
 "nodes/Anim Walk/position" = Vector2(-240, 400)
 nodes/Walk/node = SubResource("AnimationNodeBlend2_bapt6")
-nodes/Walk/position = Vector2(20, 140)
-nodes/Attack/node = SubResource("AnimationNodeOneShot_eq7t0")
-nodes/Attack/position = Vector2(320, 120)
-"nodes/Anim Atk/node" = SubResource("AnimationNodeAnimation_1053m")
-"nodes/Anim Atk/position" = Vector2(120, 440)
-node_connections = [&"output", 0, &"Attack", &"Walk", 0, &"Idle", &"Walk", 1, &"Anim Walk", &"Attack", 0, &"Walk", &"Attack", 1, &"Anim Atk"]
+nodes/Walk/position = Vector2(180, 140)
+node_connections = [&"output", 0, &"Walk", &"Walk", 0, &"Idle", &"Walk", 1, &"Anim Walk"]
 
 [node name="Mob" instance=ExtResource("1_4are2")]
+transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -0.99999994, 0, 0, 0)
 
 [node name="Skeleton3D" parent="MonsterArmature" index="0"]
-bones/1/position = Vector3(-7.803066e-18, 0.094313174, 0.5008285)
-bones/2/position = Vector3(0, 0.4987957, 0)
-bones/4/rotation = Quaternion(2.1684049e-19, -6.174371e-10, 0.010683703, 0.99994296)
-bones/5/position = Vector3(-0.43069768, 0.48524597, 0.50621223)
-bones/5/rotation = Quaternion(-0.014207466, 0.0030219322, 0.014651882, 0.99978715)
-bones/6/position = Vector3(0.43069768, 0.48524597, 0.50621223)
-bones/6/rotation = Quaternion(-0.0142074665, -0.0030219322, -0.014651883, 0.99978715)
+bones/1/position = Vector3(-7.803066e-18, 0.090286285, 0.5008285)
+bones/2/position = Vector3(0, 0.48419628, 0)
+bones/4/rotation = Quaternion(6.266059e-20, 3.5473344e-10, -0.007367163, 0.9999729)
+bones/5/position = Vector3(-0.43069768, 0.47642216, 0.50621223)
+bones/5/rotation = Quaternion(-0.0009128124, 0.00019415541, 0.00094136543, 0.99999917)
+bones/6/position = Vector3(0.43069768, 0.47642216, 0.50621223)
+bones/6/rotation = Quaternion(-0.0009128124, -0.00019415541, -0.00094136543, 0.99999917)
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Idle"
@@ -48,6 +40,3 @@ autoplay = "Idle"
 tree_root = SubResource("AnimationNodeBlendTree_1053m")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Walk/blend_amount = 0.0
-parameters/Attack/active = false
-parameters/Attack/internal_active = false
-parameters/Attack/request = 0

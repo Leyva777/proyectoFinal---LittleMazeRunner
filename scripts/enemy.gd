@@ -106,6 +106,8 @@ func patrol_behavior(_delta):
 	if waypoints.is_empty():
 		return
 	
+	curAnim = IDLE
+	
 	# Check if player is in detection range
 	if player and global_position.distance_to(player.global_position) < detection_radius:
 		current_state = State.CHASE
@@ -119,7 +121,6 @@ func patrol_behavior(_delta):
 	if direction.length() > 0:
 		velocity.x = direction.x * speed
 		velocity.z = direction.z * speed
-		curAnim = WALK
 		
 		# Rotate to face movement direction
 		if mob:
@@ -136,12 +137,13 @@ func chase_behavior(_delta):
 		current_state = State.PATROL
 		return
 	
+	curAnim = WALK
+	
 	var distance_to_player = global_position.distance_to(player.global_position)
 	
 	# If player too far, return to patrol
 	if distance_to_player > detection_radius * 1.5:
 		current_state = State.PATROL
-		curAnim = IDLE
 		return
 	
 	# Chase player
@@ -151,7 +153,6 @@ func chase_behavior(_delta):
 	if direction.length() > 0:
 		velocity.x = direction.x * speed * 1.3  # Chase slightly faster
 		velocity.z = direction.z * speed * 1.3
-		curAnim = WALK
 		
 		# Rotate to face player
 		if mob:
