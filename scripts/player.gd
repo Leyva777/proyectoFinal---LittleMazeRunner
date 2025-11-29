@@ -267,9 +267,10 @@ func create_shield_effect():
 	
 	# Animate shield
 	var tween = create_tween()
-	tween.set_loops()
+	tween.bind_node(shield)
 	tween.tween_property(shield, "scale", Vector3(1.1, 1.1, 1.1), 0.5)
 	tween.tween_property(shield, "scale", Vector3(1.0, 1.0, 1.0), 0.5)
+	tween.set_loops()
 
 func remove_shield_effect():
 	var shield = get_node_or_null("ShieldEffect")
